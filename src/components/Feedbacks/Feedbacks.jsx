@@ -1,4 +1,5 @@
 import { Component } from "react";
+import 'bulma/css/bulma.css';
 
 
 
@@ -41,11 +42,11 @@ export class Feedbacks extends Component {
 
     const { good, neutral, bad } = this.state;
     return (
-      <form onClick={this.onClickResetForm}>
+      <form onClick={this.onClickResetForm} className='box'>
         <h1>Please leave feedback</h1>
-        <button type="button" name="good" onClick={this.handelClick}  >good</button>
-        <button type="button" name="neutral" onClick={this.handelClick}  >neutral</button>
-        <button type="button" name="bad" onClick={this.handelClick}  >bad</button>
+        <button type="button" name="good" onClick={this.handelClick} className="button is-success" >Good</button>
+        <button type="button" name="neutral" onClick={this.handelClick} className="button is-warning">Neutral</button>
+        <button type="button" name="bad" onClick={this.handelClick} className="button is-danger" >Bad</button>
         <h2>Statisticks</h2>
         <ul>
           <li>good: {good} </li>
