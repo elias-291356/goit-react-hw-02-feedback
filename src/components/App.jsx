@@ -1,24 +1,66 @@
-import { Feedbacks } from "./Feedbacks/Feedbacks";
+import React, { Component } from 'react';
+import FeedbackOptions from './Feedbacks/Feedbacks';
+import Statistics from './Statisticks/Statisticks';
+import Section from './Section/Section';
+import 'bulma/css/bulma.css';
+export class App extends Component {
+  state = {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  };
 
-// import { Statistics } from "./Feedbacks/Statistics"
-// import { Statistics } from "./Feedbacks/FeedbackOptions"
+  handleLeaveFeedback = (type) => {
+    this.setState((prevState) => ({ [type]: prevState[type] + 1 }));
+  };
 
-export const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      <Feedbacks
+  handleResetFeedback = () => {
+    this.setState({
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    });
+  };
 
-      />
+  onClickResetForm = (event) => {
+    const { name } = event.target;
+    if (name !== "good" && name !== "neutral" && name !== "bad") {
+      this.setState({
+        good: 0,
+        neutral: 0,
+        bad: 0
+      });
+    }
+  }
 
-    </div>
-  );
-};
+  render() {
+    const { good, neutral, bad } = this.state;
+
+    return (
+      <div className='container content'
+
+      >
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            onLeaveFeedback={this.handleLeaveFeedback}
+            onResetFeedback={this.handleResetFeedback}
+          />
+        </Section>
+        <Section >
+
+          <Statistics
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            onClick={this.onClickResetForm}
+          />
+        </Section>
+      </div>
+    );
+  }
+}
+
+
+
+
+
